@@ -15,9 +15,8 @@ type Config struct {
 }
 
 func NewMySqlDB(cfg Config) (*sql.DB, error) {
-	fmt.Println(cfg)
-	fmt.Println(fmt.Sprintf("%s:%s@/tcp(%s:%s)/%s",
-		cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.DBName))
+	//fmt.Println(fmt.Sprintf("%s:%s@/tcp(%s:%s)/%s",
+	//	cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.DBName))
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.DBName))
 	if err != nil {

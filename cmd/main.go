@@ -6,8 +6,10 @@ import (
 	"getcoinbase/pkg/handler"
 	"getcoinbase/pkg/repository"
 	"getcoinbase/pkg/service"
+	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 	"log"
+	"os"
 )
 
 func main() {
@@ -21,12 +23,16 @@ func run() error {
 		return err
 	}
 
+	if err := godotenv.Load(); err != nil {
+		return err
+	}
+
 	db, err := repository.NewMySqlDB(repository.Config{
-		Host:     "localhost",
-		Port:     "3306",
-		Username: "root",
-		Password: "qwerty",
-		DBName:   "coinbase",
+		Host:     viper.GetString("db.host"),
+		Port:     viper.GetString("db.port"),
+		Username: viper.GetString("db.username"),
+		Password: os.Getenv("DB_PASS"),
+		DBName:   viper.GetString("db.name"),
 	})
 	if err != nil {
 		return err
